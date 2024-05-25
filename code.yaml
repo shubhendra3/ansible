@@ -1,0 +1,58 @@
+---
+- name: Setup
+  hosts: localhost
+  connection: local
+  become: true
+  tasks:
+    - name: Update
+      ansible.builtin.dnf:
+        name: '*'
+        state: latest
+    - name: Installing Git
+      ansible.builtin.dnf:
+        name: git
+        state: present
+    - name: Installing fish
+      ansible.builtin.dnf:
+        name: fish
+        state: present
+    - name: Changing default shell to fish for the user
+      ansible.builtin.command: usermod -s /usr/bin/fish root
+    - name: Ensure curl is installed
+      ansible.builtin.dnf:
+        name: curl
+        state: present
+
+    - name: Install Node.js
+      ansible.builtin.dnf:
+        name: nodejs
+        state: present
+
+    - name: Verify Node.js installation
+      ansible.builtin.command: node --version
+      register: node_version
+
+    - name: Display Node.js version
+      ansible.builtin.debug:
+        msg: "Node.js version installed: {{ node_version.stdout }}"
+
+    - name: Installing docker 
+      ansible.builtin.dnf:
+        name: "{{ item }}"
+        state: present
+      loop:
+        - docker
+        - dnf-plugins-core
+        - python3-docker
+        - docker-compose
+    - name: Start Docker service
+      ansible.builtin.service:
+        name: docker
+        state: started
+        enabled: yes
+    - name: npm
+      community.general.npm:
+        name: npm
+        global: yes  
+    - name : pnpm
+      ansible.builtin.command: npm i -g pnpm
