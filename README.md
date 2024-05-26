@@ -27,10 +27,10 @@ The playbook performs the following tasks:
 
 To use this playbook, follow these steps:
 
-1. Clone the repository containing this playbook to your local machine.
-2. Ensure you have Ansible installed. If not, install it using:
+1. Ensure you have Ansible installed.
+2. Clone the repository containing this playbook to your local machine.
    ```bash
-   sudo dnf install ansible
+
    git clone https://github.com/shubhendra3/ansible.git
    cd ansible
    ansible-playbook code.yaml
