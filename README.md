@@ -34,4 +34,8 @@ To use this playbook, follow these steps:
    git clone https://github.com/shubhendra3/ansible.git
    cd ansible
    ansible-playbook code.yaml
+
+   OR
+   
+   ansible-pull -U https://github.com/shubhendra3/ansible.git code.yaml
    ```
